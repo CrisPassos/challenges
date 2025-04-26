@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { MainComponent } from "./layout/main/main.component";
-import { HeaderComponent } from './layout/header/header.component';
-import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { MainComponent } from "./layouts/main/main.component";
+import { HeaderComponent } from './layouts/header/header.component';
+import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({

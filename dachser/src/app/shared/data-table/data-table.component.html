@@ -1,0 +1,20 @@
+<div class="table-wrapper">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    @for (column of columns; track $index) {
+    <ng-container [matColumnDef]="column.key">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ column.label }}
+      </th>
+      <td mat-cell *matCellDef="let row">{{ row[column.key] }}</td>
+    </ng-container>
+    }
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  @if(data.length === 0) {
+  <div class="empty-state" *ngIf="data.length === 0">
+    <p>Empty 😢</p>
+  </div>
+  }
+</div>
