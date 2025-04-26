@@ -1,4 +1,4 @@
-@use '../styles/colors.scss' as *;
+@use '../../styles/colors.scss' as *;
 
 .table-wrapper {
   width: 100%;
@@ -33,6 +33,5 @@
 .empty-state {
     margin-top: 2rem;
     font-size: 1.2rem;
-    color: $color-background-dachser;
   }
 }

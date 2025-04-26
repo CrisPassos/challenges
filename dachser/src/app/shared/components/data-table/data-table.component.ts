@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Shipment } from '../../models/shipment.model';
 
 @Component({
   selector: 'app-data-table',
@@ -16,11 +17,13 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./data-table.component.scss'],
 })
 export class DataTableComponent implements OnInit, AfterViewInit {
-  @Input({ required: true }) columns: { key: string; label: string }[] = [];
-  @Input({ required: true }) data: any[] = [];
-
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<any>();
+
+  @Input({ required: true }) columns: { key: string; label: string }[] = [];
+  @Input({ required: true }) set data(value: Shipment[]) {
+    this.dataSource.data = value;
+  }
 
   @ViewChild(MatSort) sort!: MatSort;
 
