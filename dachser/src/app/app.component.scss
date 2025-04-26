@@ -1,0 +1,15 @@
+.app-container {
+  height: 100vh;
+}
+
+mat-sidenav-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.app-content {
+  flex: 1;
+  padding: 16px;
+  overflow: auto;
+}
