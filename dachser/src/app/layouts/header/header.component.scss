@@ -1,0 +1,6 @@
+@use '../../shared/styles/colors.scss' as *;
+
+.header {
+  color: $color-secondary-dachser;
+  background-color: $color-primary-dachser;
+}
