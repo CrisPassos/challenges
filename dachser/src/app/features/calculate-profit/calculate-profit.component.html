@@ -1,1 +1,38 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="form-container">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Shipment Id</mat-label>
+    <input matInput formControlName="shipmentId" />
+  </mat-form-field>
+
+  <fieldset class="group">
+    <legend>Income & Outcome</legend>
+    <div class="row">
+      <div class="column center-content">
+        <mat-form-field appearance="outline">
+          <mat-label>Income</mat-label>
+          <input matInput formControlName="income" />
+        </mat-form-field>
+      </div>
+
+      <fieldset class="column group2">
+        <legend>Costs</legend>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cost</mat-label>
+          <input matInput formControlName="cost" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Additional Cost</mat-label>
+          <input matInput formControlName="additionalCost" />
+        </mat-form-field>
+      </fieldset>
+
+      <div class="column button-wrapper">
+        <button mat-raised-button type="submit">Calcular</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+
 <app-data-table [columns]="columns" [data]="rows"> </app-data-table>
