@@ -7,13 +7,17 @@ import { MatInputModule } from '@angular/material/input';
 import { CalculateProfitService } from '../../shared/services/calculate-profit.service';
 import { Subject, takeUntil } from 'rxjs';
 import { Shipment } from '../../shared/models/shipment.model';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-calculate-profit',
   imports: [DataTableComponent,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule],
+    MatButtonModule,
+    MatSnackBarModule
+  ],
   templateUrl: './calculate-profit.component.html',
   styleUrl: './calculate-profit.component.scss'
 })
@@ -21,6 +25,7 @@ export class CalculateProfitComponent implements OnInit, OnDestroy {
   shipmentForm: FormGroup;
   services = inject(CalculateProfitService);
   fb = inject(FormBuilder);
+  alert = inject(MatSnackBar);
 
   rows = signal<Shipment[]>([]);
   columns = [
@@ -58,9 +63,10 @@ export class CalculateProfitComponent implements OnInit, OnDestroy {
           totalCosts: shipment.totalCosts,
           profit: shipment.profit,
         }))),
-        error: (err) => console.error('Erro carregando shipments', err)
+        error: (err) => this.alert.open(`Error: ${err?.body?.error}`, 'Close', {
+          verticalPosition: 'top', duration: 8000
+        })
       });
-
   }
 
   onSubmit() {
@@ -79,9 +85,10 @@ export class CalculateProfitComponent implements OnInit, OnDestroy {
 
       this.services.calculateProfit(shipment).subscribe({
         next: () => this.loadShipments(),
-        error: (err) => console.error('Profit calculated successfully:', err),
+        error: (err) =>
+          this.alert.open(`Error: ${err?.body?.error}`, 'Close', { verticalPosition: 'top', duration: 8000 }),
         complete: () => {
-          console.log('Profit calculated successfully');
+          this.alert.open('Profit calculated successfully', 'Close', { verticalPosition: 'top', duration: 8000 });
           this.shipmentForm.reset({ emitEvent: false });
         }
       });

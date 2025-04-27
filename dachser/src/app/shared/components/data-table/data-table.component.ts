@@ -20,9 +20,16 @@ export class DataTableComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<any>();
 
+  private _data: Shipment[] = [];
+
   @Input({ required: true }) columns: { key: string; label: string }[] = [];
-  @Input({ required: true }) set data(value: Shipment[]) {
+  @Input({ required: true })
+  set data(value: Shipment[]) {
+    this._data = value;
     this.dataSource.data = value;
+  }
+  get data(): Shipment[] {
+    return this._data;
   }
 
   @ViewChild(MatSort) sort!: MatSort;
