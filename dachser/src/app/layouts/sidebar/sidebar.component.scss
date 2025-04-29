@@ -4,18 +4,8 @@ strong {
   color: $color-primary-dachser;
 }
 
-.sidebar-list {
-  display: flex;
-  flex-direction: column;
-  height: 90vh;
-}
-
 .grow {
   flex-grow: 0;
-}
-
-.logout-link {
-  margin-top: auto;
 }
 
 mat-icon {

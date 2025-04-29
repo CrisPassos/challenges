@@ -1,6 +1,6 @@
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { DataTableComponent } from '../../shared/components/data-table/data-table.component';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule, FormGroupDirective } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -69,11 +69,10 @@ export class CalculateProfitComponent implements OnInit, OnDestroy {
       });
   }
 
-  onSubmit() {
+  onSubmit(formDirective: FormGroupDirective) {
     if (this.shipmentForm.valid) {
       const { shipmentId, income, cost, additionalCost } = this.shipmentForm.value;
-      const totalCosts = parseFloat(cost) + (additionalCost ? parseFloat(additionalCost) : 0);
-      const profit = parseFloat(income) - totalCosts;
+      const { totalCosts, profit } = this.calculateProfit(cost, additionalCost, income);
 
       const shipment = {
         id: parseInt(shipmentId),
@@ -89,10 +88,18 @@ export class CalculateProfitComponent implements OnInit, OnDestroy {
           this.alert.open(`Error: ${err?.body?.error}`, 'Close', { verticalPosition: 'top', duration: 8000 }),
         complete: () => {
           this.alert.open('Profit calculated successfully', 'Close', { verticalPosition: 'top', duration: 8000 });
-          this.shipmentForm.reset({ emitEvent: false });
+
+          formDirective.resetForm();
+          this.shipmentForm.reset();
         }
       });
     }
+  }
+
+  calculateProfit(cost: string, additionalCost: string, income: string) {
+    const totalCosts = parseFloat(cost) + (additionalCost ? parseFloat(additionalCost) : 0);
+    const profit = parseFloat(income) - totalCosts;
+    return { totalCosts, profit };
   }
 
   ngOnDestroy(): void {

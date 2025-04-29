@@ -1,4 +1,9 @@
-<form [formGroup]="shipmentForm" (ngSubmit)="onSubmit()" class="form-container">
+<form
+  [formGroup]="shipmentForm"
+  (ngSubmit)="onSubmit(formDirective)"
+  #formDirective="ngForm"
+  class="form-container"
+>
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Shipment Id</mat-label>
     <input matInput formControlName="shipmentId" />
