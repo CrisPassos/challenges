@@ -1,1 +1,5 @@
-<p>product-list works!</p>
+<h1>Our Best Products</h1>
+@for (p of products(); track $index) {
+<app-product-item [product]="p" (addToCart)="addToCart($event)">
+</app-product-item>
+}

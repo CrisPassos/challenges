@@ -1,1 +1,48 @@
-<p>cart works!</p>
+<section class="cart">
+  <h1 class="cart__title">Shopping Cart</h1>
+
+  <div class="cart__list">
+    @for (item of cartItems(); track $index) {
+    <div class="cart__item">
+      <img
+        [src]="item.product.image"
+        alt="{{ item.product.title }}"
+        class="cart__image"
+      />
+
+      <div class="cart__details">
+        <p class="cart__product-title" [title]="item.product.title">
+          {{ item.product.title }}
+        </p>
+
+        <div class="cart__quantity">
+          <button class="cart__button" (click)="decreaseQuantity(item)">
+            −
+          </button>
+          <span class="cart__quantity-value">{{ item.quantity }}</span>
+          <button class="cart__button" (click)="increaseQuantity(item)">
+            +
+          </button>
+        </div>
+
+        <div class="cart__price">
+          <label>Price:</label>
+          <br />
+          <label>
+            {{
+              item.product.price * item.quantity | currency : "USD" : "symbol"
+            }}
+          </label>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+  <div class="cart__footer">
+    <div class="cart__total-label">Total:</div>
+    <div class="cart__total-value">
+      € {{ getTotal() | currency : "USD" : "symbol" }}
+    </div>
+  </div>
+</section>

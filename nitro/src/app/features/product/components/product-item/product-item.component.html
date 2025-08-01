@@ -1,1 +1,49 @@
-<p>product-item works!</p>
+<div class="product-card">
+  <img
+    [src]="product.image"
+    alt="{{ product.title }}"
+    class="product-card__image"
+  />
+
+  <div class="product-card__content">
+    <label class="product-card__title">{{ product.title }}</label>
+
+    <div class="product-card__details">
+      <label class="product-card__price">
+        {{ product.price | currency : "USD" : "symbol" }}
+      </label>
+      <br />
+      <small class="product-card__rating">
+        ★ {{ product.rating.rate }} ({{ product.rating.count }})
+      </small>
+    </div>
+
+    <div class="product-card__actions">
+      <label class="product-card__label">Quantity</label>
+      <br />
+      <button class="product-card__qty-btn" (click)="decreaseQuantity(product)">
+        −
+      </button>
+      <span class="product-card__quantity">
+        {{ quantities[product.id] || 1 }}
+      </span>
+      <button class="product-card__qty-btn" (click)="increaseQuantity(product)">
+        +
+      </button>
+
+      <button
+        class="product-card__button"
+        (click)="
+          addToCart.emit({
+            cart: {
+              product: product,
+              quantity: quantities[product.id] || 1
+            }
+          })
+        "
+      >
+        Add to Cart
+      </button>
+    </div>
+  </div>
+</div>
