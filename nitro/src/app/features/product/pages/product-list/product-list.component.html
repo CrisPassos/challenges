@@ -1,4 +1,16 @@
 <h1>Our Best Products</h1>
+
+<div class="category">
+  <select (change)="onCategoryChange($event)">
+    <option value="all">all</option>
+    @for (category of categories(); track $index) {
+    <option [value]="category">
+      {{ category }}
+    </option>
+    }
+  </select>
+</div>
+
 @for (p of products(); track $index) {
 <app-product-item [product]="p" (addToCart)="addToCart($event)">
 </app-product-item>

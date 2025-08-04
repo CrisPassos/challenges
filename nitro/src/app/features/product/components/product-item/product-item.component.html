@@ -6,7 +6,9 @@
   />
 
   <div class="product-card__content">
-    <label class="product-card__title">{{ product.title }}</label>
+    <label class="product-card__title" [title]="product.title">
+      {{ product.title }}
+    </label>
 
     <div class="product-card__details">
       <label class="product-card__price">
